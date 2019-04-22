@@ -34,13 +34,13 @@ class SleepRecordViewController: UITableViewController, NSFetchedResultsControll
         guard let familyMember = familyMember else {
             preconditionFailure("Family Member must be set")
         }
-        navigationItem.title = "Sleep Records \(familyMember.name!)"
+        navigationItem.title = "Sleep Records for \(familyMember.name!)"
         
         let familyPredicates = NSPredicate(format: "familyMember == %@", familyMember)
         
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         
-        let sleepRecordsFetch = NSFetchRequest<SleepRecord>(entityName: "SleepRecored")
+        let sleepRecordsFetch = NSFetchRequest<SleepRecord>(entityName: "SleepRecord")
         
         sleepRecordsFetch.sortDescriptors = [sortDescriptor]
         sleepRecordsFetch.predicate = familyPredicates
@@ -67,7 +67,7 @@ class SleepRecordViewController: UITableViewController, NSFetchedResultsControll
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SleepRecordTableCell")!
         let sleepRecord = sleepRecords[indexPath.row]
-        cell.textLabel?.text = "\(sleepRecord.date!)"
+        cell.textLabel?.text = dateFormatter.string(from: sleepRecord.date!)
         cell.detailTextLabel?.text = "\(sleepRecord.hours) hours"
         return cell
     }

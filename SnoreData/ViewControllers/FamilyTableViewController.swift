@@ -64,9 +64,7 @@ class FamilyTableViewController: UITableViewController,NSFetchedResultsControlle
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "addFamilyMember":
-            let destination = segue.destination as! AddEditFamilyMemberViewController
-            destination.familyDelegate = self
+            
         case "editFamilyMember":
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPath(for: cell)!
@@ -76,6 +74,10 @@ class FamilyTableViewController: UITableViewController,NSFetchedResultsControlle
             destination.familyMember = selectedFamilyMember
             destination.familyDelegate = self
             
+        case "addFamilyMember":
+            let destination = segue.destination as! AddEditFamilyMemberViewController
+            destination.familyDelegate = self
+            
         case "showFamilyMemberSleepRecords":
             let selectedRow = tableView.indexPathForSelectedRow!.row
             let familyMember = familyMemberObjects[selectedRow]
@@ -83,7 +85,7 @@ class FamilyTableViewController: UITableViewController,NSFetchedResultsControlle
             destination.managedContext = managedContext
             destination.familyMember = familyMember
             
-            default:
+        default:
             print("What type of a segue is this??")
         }
     }
